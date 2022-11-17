@@ -17,8 +17,14 @@ class Client extends Model
         'company_address',
         'company_city',
         'company_zip',
-        'company_vat'
+        
     ];
+
+
+    public function projects ()
+    {
+        return $this->hasMany(Project::class);
+    }
     
 
    

@@ -21,4 +21,13 @@ class Project extends Model
     public const STATUS = ['open', 'in progress', 'blocked', 'cancelled', 'completed'];
 
    
+    public function client()
+    {
+        return $this->belongsTo(Client::class);
+    }
+
+    public function user()
+    {
+        return $this->belongsTo(User::class);
+    }
 }

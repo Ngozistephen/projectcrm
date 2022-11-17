@@ -31,7 +31,7 @@ class ClientFactory extends Factory
             'company_address' => $this->faker->address(),
             'company_city' => $this->faker->city(),
             'company_zip' => $this->faker->randomNumber(5),
-            'company_vat' => $this->faker->randomNumber(5),
+           
         ];
     }
 }

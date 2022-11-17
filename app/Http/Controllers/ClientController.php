@@ -2,6 +2,8 @@
 
 namespace App\Http\Controllers;
 
+use App\Http\Requests\CreateClientRequest;
+use App\Http\Requests\EditClientRequest;
 use App\Models\Client;
 use Illuminate\Http\Request;
 
@@ -14,7 +16,10 @@ class ClientController extends Controller
      */
     public function index()
     {
-        //
+        $clients = Client::all();
+
+        return view ('dashboard.clients.index', compact('clients'));
+
     }
 
     /**
@@ -24,7 +29,7 @@ class ClientController extends Controller
      */
     public function create()
     {
-        //
+        return view('dashboard.clients.create');
     }
 
     /**
@@ -33,9 +38,11 @@ class ClientController extends Controller
      * @param  \Illuminate\Http\Request  $request
      * @return \Illuminate\Http\Response
      */
-    public function store(Request $request)
+    public function store(CreateClientRequest $request)
     {
-        //
+        Client:: create($request->validated());
+
+        return redirect()->route('dashboard.clients.index');
     }
 
     /**
@@ -46,7 +53,7 @@ class ClientController extends Controller
      */
     public function show(Client $client)
     {
-        //
+        
     }
 
     /**
@@ -57,7 +64,7 @@ class ClientController extends Controller
      */
     public function edit(Client $client)
     {
-        //
+        return view('dashboard.clients.edit', compact('client'));
     }
 
     /**
@@ -67,9 +74,11 @@ class ClientController extends Controller
      * @param  \App\Models\Client  $client
      * @return \Illuminate\Http\Response
      */
-    public function update(Request $request, Client $client)
+    public function update(EditClientRequest $request, Client $client)
     {
-        //
+        $client->update($request->validated());
+
+        return redirect()->route('dashboard.clients.index');
     }
 
     /**
