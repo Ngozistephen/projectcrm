@@ -3,6 +3,9 @@
 namespace App\Http\Controllers;
 
 use App\Models\Task;
+use App\Models\User;
+use App\Models\Client;
+use App\Models\Project;
 use Illuminate\Http\Request;
 
 class TaskController extends Controller
@@ -14,7 +17,9 @@ class TaskController extends Controller
      */
     public function index()
     {
-        //
+        $tasks = Task::with(['user', 'client', 'project'])->filterStatus(request('status'))->paginate(9);
+
+        return view('dashboard.tasks.index', compact('tasks'));
     }
 
     /**
@@ -24,7 +29,11 @@ class TaskController extends Controller
      */
     public function create()
     {
-        //
+        $users = User::all()->pluck('full_name', 'id');
+        $clients = Client::all()->pluck('company_name', 'id');
+        $projects = Project::all()->pluck('title', 'id');
+
+        return view('dashboard.tasks.create', compact('users', 'clients', 'projects'));
     }
 
     /**
@@ -46,7 +55,9 @@ class TaskController extends Controller
      */
     public function show(Task $task)
     {
-        //
+        $task->load('user', 'client');
+
+        return view('dashboard.tasks.show', compact('task'));
     }
 
     /**

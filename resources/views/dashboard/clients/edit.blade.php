@@ -209,6 +209,7 @@
 
         <form action="{{route('dashboard.clients.update', $client)}}" method="POST">
            @csrf
+           @method('PUT')
           <section class="content">
             <div class="row">
               <div class="col-md-6">

@@ -210,13 +210,13 @@
         </div>
         <!-- /.card -->
   
-      </section>
+    </section>
       <!-- /.content -->
 
 
             </div>
             <!-- /.content-wrapper -->
         
-    @endsection
+@endsection
 
     

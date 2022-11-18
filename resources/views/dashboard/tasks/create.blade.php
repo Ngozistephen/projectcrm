@@ -122,7 +122,7 @@
     
         <!-- Main content -->
        
-        <form action="{{route('dashboard.projects.store')}}" method="POST">
+        <form action="{{route('dashboard.tasks.store')}}" method="POST">
            @csrf
            <section class="content">
             <div class="row">
@@ -138,11 +138,11 @@
                   </div>
                   <div class="card-body">
                     <div class="form-group">
-                      <label for="title">Project Title</label>
+                      <label for="title">Task Title</label>
                       <input type="text" name="title" id="title" value="{{ old('title') }}" class="form-control" required>
                     </div>
                     <div class="form-group">
-                      <label for="description" class="required">Project Description</label>
+                      <label for="description" class="required">Task Description</label>
                       <textarea id="description" name="description"  class="form-control" rows="4">{{ old('description') }}</textarea>
                     </div>
                     
@@ -153,7 +153,7 @@
                                 <option value="{{ $id }}" {{ old('client_id') == $id ? 'selected' : '' }}>{{ $entry }}</option>
                             @endforeach
                         </select>
-                      </div>
+                    </div>
                   
                   </div>
                   <!-- /.card-body -->
@@ -172,6 +172,16 @@
                   </div>
                   <div class="card-body">
                     <div class="form-group">
+                        <label for="user_id">Assigned Project</label>
+                        <select class="form-control {{ $errors->has('project_id') ? 'is-invalid' : '' }}" name="project_id" id="project_id" required>
+                            @foreach($projects as $id => $entry)
+                                <option value="{{ $id }}" {{ old('project_id') == $id ? 'selected' : '' }}>{{ $entry }}</option>
+                            @endforeach
+                        </select>
+
+                        
+                    </div>
+                    <div class="form-group">
                         <label for="user_id">Assigned User</label>
                         <select class="form-control {{ $errors->has('user_id') ? 'is-invalid' : '' }}" name="user_id" id="user_id" required>
                             @foreach($users as $id => $entry)
@@ -180,23 +190,23 @@
                         </select>
 
                         
-                      </div>
+                    </div>
 
                     <div class="form-group">
                     <label for="inputStatus">Status</label>
-                      <select class="form-control {{ $errors->has('status') ? 'is-invalid' : '' }}" name="status" id="status" required>
-                        @foreach(App\Models\Project::STATUS as $status)
+                    <select class="form-control {{ $errors->has('status') ? 'is-invalid' : '' }}" name="status" id="status" required>
+                        @foreach(App\Models\Task::STATUS as $status)
                             <option
                                 value="{{ $status }}" {{ old('status') == $status ? 'selected' : '' }}>{{ ucfirst($status) }}</option>
                         @endforeach
-                      </select>
+                    </select>
                     </div>
 
                       
                     <div class="form-group">
                       <label for="deadline">Deadline</label>
-                      <input class="form-control {{ $errors->has('deadline') ? 'is-invalid' : '' }}" type="date" name="deadline" id="deadline" value="{{ old('deadline') }}">
-                        <i class="fa fa-calendar"></i>
+                      <input class="form-control {{ $errors->has('deadline') ? 'is-invalid' : '' }}" type="date" name="deadline" id="deadline" value="{{ old('deadline') }}"  class="fa fa-calendar">
+                       
                     </div>
                   </div>
                   <!-- /.card-body -->

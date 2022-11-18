@@ -2,6 +2,8 @@
 
 namespace App\Http\Controllers;
 
+use App\Models\User;
+use App\Models\Client;
 use App\Models\Project;
 use Illuminate\Http\Request;
 
@@ -14,7 +16,7 @@ class ProjectController extends Controller
      */
     public function index()
     {
-        $projects = Project::all();
+        $projects = Project::with(['user', 'client'])->filterStatus(request('status'))->paginate(10);
 
         return view ('dashboard.projects.index', compact('projects'));
     }
@@ -26,7 +28,10 @@ class ProjectController extends Controller
      */
     public function create()
     {
-        return view('dashboard.projects.create');
+        $users = User::all()->pluck('full_name', 'id');
+        $clients = Client::all()->pluck('company_name', 'id');
+
+        return view('dashboard.projects.create', compact('users', 'clients'));
         
     }
 
@@ -60,7 +65,9 @@ class ProjectController extends Controller
      */
     public function edit(Project $project)
     {
-        return view('dashboard.projects.edit', compact('project'));
+        $users = User::all()->pluck('full_name', 'id');
+        $clients = Client::all()->pluck('company_name', 'id');
+        return view('dashboard.projects.edit', compact('project','users','clients'));
     }
 
     /**

@@ -25,7 +25,17 @@ class Client extends Model
     {
         return $this->hasMany(Project::class);
     }
-    
 
+    // public function getRouteKeyName()
+    // {
+    //     return 'company_name';
+    // }
+    // // use for user model
+
+    // set is used for mutators- when we save data to database
+    public function setCompanyNameAttribute($value)
+    {
+        $this->attributes['company_name'] = ucfirst($value);
+    }
    
 }

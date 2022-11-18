@@ -2,12 +2,14 @@
 
 namespace App\Models;
 
-use Illuminate\Database\Eloquent\Factories\HasFactory;
+
 use Illuminate\Database\Eloquent\Model;
+use Illuminate\Database\Eloquent\SoftDeletes;
+use Illuminate\Database\Eloquent\Factories\HasFactory;
 
 class Task extends Model
 {
-    use HasFactory;
+    use HasFactory, SoftDeletes;
 
     protected $fillable = [
         'title',
@@ -35,5 +37,16 @@ class Task extends Model
     public function project ()
     {
         return $this->belongsTo(Project::class);
+    }
+
+
+    //  Eloquent Query Scope 
+    public function scopeFilterStatus($query, $filter)
+    {
+        if (in_array($filter, self::STATUS)) {
+            return $query->where('status', $filter);
+        }
+
+        return $query;
     }
 }

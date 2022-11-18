@@ -124,6 +124,8 @@
        
         <form action="{{route('dashboard.projects.update', $project)}}" method="POST">
            @csrf
+           @method('PUT')
+           
            <section class="content">
             <div class="row">
               <div class="col-md-6">
@@ -149,9 +151,9 @@
                     <div class="form-group">
                         <label for="client_id">Assigned Client</label>
                         <select class="form-control {{ $errors->has('client_id') ? 'is-invalid' : '' }}" name="client_id" id="client_id" required>
-                            {{-- @foreach($clients as $id => $entry)
+                            @foreach($clients as $id => $entry)
                                 <option value="{{ $id }}" {{ (old('client_id') ? old('client_id') : $project->client->id ?? '') == $id ? 'selected' : '' }}>{{ $entry }} </option>
-                            @endforeach --}}
+                            @endforeach
                         </select>
                       </div>
                   
@@ -174,9 +176,9 @@
                     <div class="form-group">
                         <label for="user_id">Assigned User</label>
                         <select class="form-control {{ $errors->has('user_id') ? 'is-invalid' : '' }}" name="user_id" id="user_id" required>
-                            {{-- @foreach($users as $id => $entry)
+                            @foreach($users as $id => $entry)
                                 <option value="{{ $id }}" {{ (old('user_id') ? old('user_id') : $project->user->id ?? '') == $id ? 'selected' : '' }}>{{ $entry }} </option>
-                            @endforeach --}}
+                            @endforeach
                         </select>
 
                         
@@ -184,13 +186,11 @@
 
                     <div class="form-group">
                     <label for="inputStatus">Status</label>
-                    <select class="form-control custom-select">
-                        <option selected disabled>Select one</option>
-                        <option>In Progress</option>
-                        <option>Canceled</option>
-                        <option>Blocked</option>
-                        <option>Completed</option>
-                        <option>Open</option>
+                    <select class="form-control {{ $errors->has('status') ? 'is-invalid' : '' }}" name="status" id="status" required>
+                      @foreach(App\Models\Project::STATUS as $status)
+                          <option
+                              value="{{ $status }}" {{ old('status') == $status ? 'selected' : '' }}>{{ ucfirst($status) }}</option>
+                      @endforeach
                     </select>
                     </div>
                       
