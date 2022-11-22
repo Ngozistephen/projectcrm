@@ -68,7 +68,11 @@ class TaskController extends Controller
      */
     public function edit(Task $task)
     {
-        //
+        $users = User::all()->pluck('full_name', 'id');
+        $clients = Client::all()->pluck('company_name', 'id');
+        $projects = Project::all()->pluck('title', 'id');
+
+        return view('dashboard.tasks.create', compact('users', 'clients', 'projects'));
     }
 
     /**

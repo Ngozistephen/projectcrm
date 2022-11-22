@@ -130,24 +130,36 @@
                       <h5 class="m-0">Assigned user</h5>
                     </div>
                     <div class="card-body">
-                      <h6 class="card-title">Special title treatment</h6>
-      
-                      <p class="card-text">With supporting text below as a natural lead-in to additional content.</p>
-                      <a href="#" class="btn btn-primary">Go somewhere</a>
+                        <p class="mb-0">{{ $task->user->full_name }}</p>
+                        <p class="mb-0">{{ $task->user->email }}</p>
+                        <p class="mb-0">{{ $task->user->phone_number }}</p>
                     </div>
                   </div>
       
                   <div class="card card-primary card-outline">
                     <div class="card-header">
-                      <h5 class="m-0">Featured</h5>
+                      <h5 class="m-0">{{ $task->title }}</h5>
                     </div>
                     <div class="card-body">
-                      <h6 class="card-title">Special title treatment</h6>
+                      <h6 class="card-title"></h6>
       
-                      <p class="card-text">With supporting text below as a natural lead-in to additional content.</p>
-                      <a href="#" class="btn btn-primary">Go somewhere</a>
+                      <p class="card-text">{{ $task->description }}</p>
+                      <p class="mb-0">Created at {{ $task->created_at->format('M d, Y H:m') }}</p>
+                        <p class="mb-0">Updated at {{ $task->updated_at->format('M d, Y H:m') }}</p>
                     </div>
                   </div>
+
+                  <div class="col-md-4">
+                    <div class="card card-primary card-outline">
+                        <div class="card-header">Information</div>
+        
+                        <div class="card-body">
+                            <p class="mb-0">Deadline {{ $task->deadline }}</p>
+                            <p class="mb-0">Created at {{ $task->created_at->format('M d, Y') }}</p>
+                            <p class="mb-0">Status {{ ucfirst($task->status) }}</p>
+                        </div>
+                    </div>
+                </div>
                 </div>
                 <!-- /.col-md-6 -->
               </div>
