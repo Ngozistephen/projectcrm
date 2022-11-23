@@ -69,63 +69,6 @@
                     </div><!-- /.container-fluid -->
                 </section>
 
-                <!-- Main content -->
-                {{-- <section class="content">
-                        <div class="card">
-                            <div class="card-header d-flex justify-content-between no-pseudo-content">
-                                <h3 class="card-title">Manage Client</h3>
-                                <a href="{{route('dashboard.clients.create')}}"  style="margin-left: 1000px" class="btn btn-sm btn-primary">Create</a>
-                            </div>
-                                <!-- /.card-header -->
-                            <div class="card-body">
-                                <table id="example1" class="table table-bordered table-striped">
-                                <thead>
-                                <tr>
-                                    <th style="width: 20px">S/N</th>
-                                    <th style="width: 100px">Company</th>
-                                    <th style="width: 200px">ZIP</th>
-                                    <th style="width: 100px">Address</th>
-                                    <th style="width: 50px">Status</th>
-                                    <th style="width: 100px">Action</th>
-                                
-                                </tr>
-                                </thead>
-                                <tbody>
-                                    @foreach ($clients as $idx => $client)
-                                        
-                                        <tr>
-                                            <td>{{$idx + 1}}</td>
-                                            <td>{{$client->company_name}}</td>
-                                            <td>{{$client->company_zip}}</td>
-                                            <td>{{$client->company_address}}</td>
-                                        
-                                            
-                                            <td>
-                                                @if ($porfolio->published_at)
-                                                         <span class="badge badge-success">published</span>   
-                                                 @else 
-                                                        <span class="badge badge-dark">unpublished</span>
-                                                @endif 
-                                            </td>
-                                            <td>
-                                                <a title ="Preview" href="{{route('admin.porfolios.preview', ['slug'=> $porfolio->slug])}}" class="btn  btn-sm btn-primary previewModalBtn"><i class ="fas fa-eye"></i></a>
-                                                <a title ="Edit" href="{{route('dashboard.clients.edit', $client)}}" class="btn btn-sm btn-warning"><i class ="fas fa-edit"></i></a>
-                                                <button  data-slug="{{$client->slug}}" title ="Delete" type="button" class="delBtn btn btn-sm btn-danger"><i class ="fas fa-trash"></i></button>
-                                            </td>
-                                        
-                                        </tr>
-                                    @endforeach
-                                    
-                                </tbody>
-                                </table>
-                            </div>
-                            <!-- /.card-body -->
-                        </div>
-                    <!-- /.card -->
-                            
-                        
-                </section> --}}
-
 
                 <section class="content">
 
@@ -221,6 +164,7 @@
                             
                             </tbody>
                         </table>
+                        {{ $projects->withQueryString()->links() }}
                       </div>
                       <!-- /.card-body -->
                     </div>

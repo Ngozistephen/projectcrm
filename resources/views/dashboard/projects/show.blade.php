@@ -100,32 +100,6 @@
             <div class="row">
               <div class="col-12 col-md-12 col-lg-8 order-2 order-md-1">
                 <div class="row">
-                  <div class="col-12 col-sm-4">
-                    <div class="info-box bg-light">
-                      <div class="info-box-content">
-                        <span class="info-box-text text-center text-muted">Estimated budget</span>
-                        <span class="info-box-number text-center text-muted mb-0">2300</span>
-                      </div>
-                    </div>
-                  </div>
-                  <div class="col-12 col-sm-4">
-                    <div class="info-box bg-light">
-                      <div class="info-box-content">
-                        <span class="info-box-text text-center text-muted">Total amount spent</span>
-                        <span class="info-box-number text-center text-muted mb-0">2000</span>
-                      </div>
-                    </div>
-                  </div>
-                  <div class="col-12 col-sm-4">
-                    <div class="info-box bg-light">
-                      <div class="info-box-content">
-                        <span class="info-box-text text-center text-muted">Estimated project duration</span>
-                        <span class="info-box-number text-center text-muted mb-0">20 <span>
-                      </div>
-                    </div>
-                  </div>
-                </div>
-                <div class="row">
                   <div class="col-12">
                     <h4>Assigned user</h4>
                       <div class="post">
@@ -204,6 +178,77 @@
                   <a href="#" class="btn btn-sm btn-warning">Report contact</a>
                 </div>
               </div>
+
+              <div class="col-md-12">
+                <div class="card card-accent-primary">
+                    <div class="card-header">Tasks</div>
+    
+                    <div class="card-body">
+                        @if($project->tasks->count())
+                            <table class="table table-sm table-responsive-sm">
+                                <thead>
+                                <tr>
+                                    <th>Title</th>
+                                    <th>Assigned to</th>
+                                    <th>Client</th>
+                                    <th>Deadline</th>
+                                    <th>Status</th>
+                                    <th></th>
+                                </tr>
+                                </thead>
+                                <tbody>
+                                    @foreach($project->tasks as $task)
+                                        <tr>
+                                            <td><a href="{{ route('dashboard.tasks.show', $task) }}">{{ $task->title }}</a></td>
+                                            <td>{{ $task->user->first_name }}</td>
+                                            <td>{{ $task->client->company_name }}</td>
+                                            <td>{{ $task->deadline }}</td>
+                                            <td>  @switch($task->status)
+                                                    @case('waiting client')
+                                                        <span class="badge badge-success">Waiting Client</span>
+                                                        @break
+                                                    @case('closed')
+                                                            <span class="badge badge-danger">Closed</span>
+                                                        @break
+                                                    @case('blocked')
+                                                            <span class="badge badge-secondary">Blocked</span>
+                                                        @break
+                                                    @case('pending')
+                                                            <span class="badge badge-light">Pending</span>
+                                                        @break
+                                                    @case('in progress')
+                                                            <span class="badge badge-warning">In Progress</span>
+                                                        @break
+                                                    @default
+                                                        <span class="badge badge-primary">Open</span>
+                                                @endswitch
+                                             </td>
+                                            <td>
+                                                <a class="btn btn-sm btn-info" href="{{ route('dashboard.tasks.edit', $task) }}">
+                                                    Edit
+                                                </a>
+                                                @can('delete')
+                                                    <form action="{{ route('dashboard.tasks.destroy', $task) }}" method="POST"
+                                                          onsubmit="return confirm('Are your sure?');"
+                                                          style="display: inline-block;">
+                                                        <input type="hidden" name="_method" value="DELETE">
+                                                        <input type="hidden" name="_token" value="{{ csrf_token() }}">
+                                                        <input type="submit" class="btn btn-sm btn-danger" value="Delete">
+                                                    </form>
+                                                @endcan
+                                            </td>
+                                        </tr>
+                                    @endforeach
+                                </tbody>
+                            </table>
+                        @else
+                            <div class="alert alert-info" role="alert">
+                                No tasks added to this project. <a href="{{ route('dashboard.tasks.create') }}">Create task now.</a>
+                            </div>
+                        @endif
+                    </div>
+                </div>
+            </div>
             </div>
           </div>
           <!-- /.card-body -->

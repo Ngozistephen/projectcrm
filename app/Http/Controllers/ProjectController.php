@@ -6,6 +6,8 @@ use App\Models\User;
 use App\Models\Client;
 use App\Models\Project;
 use Illuminate\Http\Request;
+use App\Http\Requests\EditProjectRequest;
+use App\Http\Requests\CreateProjectRequest;
 
 class ProjectController extends Controller
 {
@@ -41,9 +43,13 @@ class ProjectController extends Controller
      * @param  \Illuminate\Http\Request  $request
      * @return \Illuminate\Http\Response
      */
-    public function store(Request $request)
+    public function store(CreateProjectRequest $request)
     {
-        //
+        $project = Project::create($request->validated());
+
+        $user = User::find($request->user_id);
+
+        return redirect()->route('dashboard.projects.index');
     }
 
     /**
@@ -53,7 +59,9 @@ class ProjectController extends Controller
      * @return \Illuminate\Http\Response
      */
     public function show(Project $project)
+
     {
+        $project->load('tasks', 'user', 'client');
         return view('dashboard.projects.show', compact('project'));
     }
 
@@ -77,9 +85,17 @@ class ProjectController extends Controller
      * @param  \App\Models\Project  $project
      * @return \Illuminate\Http\Response
      */
-    public function update(Request $request, Project $project)
+    public function update(EditProjectRequest $request, Project $project)
     {
-        //
+        if ($project->user_id !== $request->user_id) {
+            $user = User::find($request->user_id);
+
+            // $user->notify(new ProjectAssigned($project));
+        }
+
+        $project->update($request->validated());
+
+        return redirect()->route('dashbpard.projects.index');
     }
 
     /**
