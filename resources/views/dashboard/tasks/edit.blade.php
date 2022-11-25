@@ -144,7 +144,7 @@
                     </div>
                     <div class="form-group">
                       <label for="description" class="required">Task Description</label>
-                      <textarea id="description" name="description"  class="form-control" rows="4">{{ old('description', $task->description) }}</textarea>
+                      <textarea id="description" name="description"  class="form-control" rows="4">{!! old('description', $task->description) !!}</textarea>
                     </div>
                     
                     <div class="form-group">

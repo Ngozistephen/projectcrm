@@ -28,7 +28,7 @@ Route::permanentRedirect('/', 'login');
 Route::middleware(['auth','termsAccepted'])->group(function(){
     Route::get('/home', [HomeController::class, 'index'])->name('home');
     Route::name('dashboard.')->group(function () {
-        Route::resource('users', UserController::class);
+        Route::resource('users', UserController::class)->middleware('role:admin');
         Route::resource('clients', ClientController::class);
         Route::resource('projects', ProjectController::class);
         Route::resource('tasks', TaskController::class);

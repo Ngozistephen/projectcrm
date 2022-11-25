@@ -2,10 +2,12 @@
 
 namespace App\Http\Controllers;
 
-use App\Http\Requests\CreateClientRequest;
-use App\Http\Requests\EditClientRequest;
 use App\Models\Client;
 use Illuminate\Http\Request;
+use Illuminate\Http\Response;
+use Illuminate\Support\Facades\Gate;
+use App\Http\Requests\EditClientRequest;
+use App\Http\Requests\CreateClientRequest;
 
 class ClientController extends Controller
 {
@@ -89,6 +91,6 @@ class ClientController extends Controller
      */
     public function destroy(Client $client)
     {
-        //
+        abort_if(Gate::denies('delete'), Response::HTTP_FORBIDDEN, '403 Forbidden');
     }
 }

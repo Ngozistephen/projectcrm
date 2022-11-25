@@ -7,6 +7,8 @@ use App\Models\User;
 use App\Models\Client;
 use App\Models\Project;
 use Illuminate\Http\Request;
+use Illuminate\Http\Response;
+use Illuminate\Support\Facades\Gate;
 
 class TaskController extends Controller
 {
@@ -95,6 +97,6 @@ class TaskController extends Controller
      */
     public function destroy(Task $task)
     {
-        //
+        abort_if(Gate::denies('delete'), Response::HTTP_FORBIDDEN, '403 Forbidden');
     }
 }

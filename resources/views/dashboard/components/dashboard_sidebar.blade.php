@@ -43,7 +43,19 @@
                     <i class=" nav-icon fa-regular fa-user"></i>
                     {{-- <i class="nav-icon fa-solid fa-floppy-disk"></i> --}}
                     <p> Users <span class="right badge badge-danger">New</span></p>
-                    </a>  
+                    </a> 
+                    <ul class="nav nav-treeview">
+                        <li class="nav-item">
+                            <a href="{{route('dashboard.users.create')}}" class="nav-link">
+                            <i class="far fa-circle nav-icon"></i>
+                            <p>Create</p>
+                            </a>
+                        </li>
+                        <li class="nav-item">
+                            <a href= "{{route('dashboard.users.index')}}" class="nav-link">
+                                <i class="far fa-circle nav-icon"></i>
+                                <p>All</p>
+                            </a> 
                 </li>
             </ul>
             <ul class="nav nav-pills nav-sidebar flex-column" data-widget="treeview" role="menu" data-accordion="false">

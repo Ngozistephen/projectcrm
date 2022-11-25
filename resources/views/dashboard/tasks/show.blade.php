@@ -143,7 +143,7 @@
                     <div class="card-body">
                       <h6 class="card-title"></h6>
       
-                      <p class="card-text">{{ $task->description }}</p>
+                      <p class="card-text">{!! $task->description !!}</p>
                       <p class="mb-0">Created at {{ $task->created_at->format('M d, Y H:m') }}</p>
                         <p class="mb-0">Updated at {{ $task->updated_at->format('M d, Y H:m') }}</p>
                     </div>

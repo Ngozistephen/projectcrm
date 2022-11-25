@@ -1,6 +1,6 @@
 @extends('layouts.dashboard')
 
-    @section('page-title', 'EDIT')
+    @section('page-title', 'CREATE')
 
 @section('scripts')
     <script src="/js/custom/fix-custom-file-select.js"></script>
@@ -30,13 +30,13 @@
     <script>
       $(function () {
         //Add text editor
-        $('#description').summernote({
+        $('#compose-textarea').summernote({
           placeholder: 'write your content here',
           focus:true,
           minHeight:100
         });
        
-        $('#description').summernote('code','');
+        $('#compose-textarea').summernote('code','');
 
       })
     </script>
@@ -108,30 +108,27 @@
           <div class="container-fluid">
             <div class="row mb-2">
               <div class="col-sm-6">
-                <h1>Create Project</h1>
+                <h1>User Information</h1>
               </div>
               <div class="col-sm-6">
                 <ol class="breadcrumb float-sm-right">
-                  <li class="breadcrumb-item"><a href="{{route('dashboard.projects.index')}}">Home</a></li>
-                  <li class="breadcrumb-item active">Create Projects</li>
+                  <li class="breadcrumb-item"><a href="{{route('dashboard.users.index')}}">Home</a></li>
+                  <li class="breadcrumb-item active">Create User</li>
                 </ol>
               </div>
             </div>
           </div><!-- /.container-fluid -->
         </section>
     
-        <!-- Main content -->
-       
-        <form action="{{route('dashboard.projects.update', $project)}}" method="POST">
+
+        <form action="{{route('dashboard.users.store')}}" method="POST">
            @csrf
-           @method('PUT')
-           
-           <section class="content">
+          <section class="content">
             <div class="row">
               <div class="col-md-6">
                 <div class="card card-primary">
                   <div class="card-header">
-                    <h3 class="card-title">Create Your Project</h3>
+                    <h3 class="card-title">User Information</h3>
       
                     <div class="card-tools">
                       <button type="button" class="btn btn-tool" data-card-widget="collapse" data-toggle="tooltip" title="Collapse">
@@ -140,23 +137,18 @@
                   </div>
                   <div class="card-body">
                     <div class="form-group">
-                      <label for="title">Project Title</label>
-                      <input type="text" name="title" id="title" value="{{ old('title', $project->title) }}" class="form-control" required>
+                      <label class="required" for="contact_name">Name</label>
+                      <input type="text" id="contact_name" name="contact_name" class="form-control" value="{{ old('contact_name') }}" required>
                     </div>
                     <div class="form-group">
-                      <label for="description" class="required">Project Description</label>
-                      <textarea id="description" name="description"  class="form-control" rows="4">{!! old('description',  $project->description) !!}</textarea>
+                      <label class="required" for="contact_email">Email</label>
+                      <input type="text" id="contact_email" name="contact_email" class="form-control" value="{{ old('contact_email') }}" required>
                     </div>
-                    
                     <div class="form-group">
-                        <label for="client_id">Assigned Client</label>
-                        <select class="form-control {{ $errors->has('client_id') ? 'is-invalid' : '' }}" name="client_id" id="client_id" required>
-                            @foreach($clients as $id => $entry)
-                                <option value="{{ $id }}" {{ (old('client_id') ? old('client_id') : $project->client->id ?? '') == $id ? 'selected' : '' }}>{{ $entry }} </option>
-                            @endforeach
-                        </select>
-                      </div>
-                  
+                      <label class="required" for="contact_phone_number">Phone Number</label>
+                      <input type="text" id="contact_phone_number" name="contact_phone_number" class="form-control" value="{{ old('contact_phone_number') }}" required>
+                    </div>
+                
                   </div>
                   <!-- /.card-body -->
                 </div>
@@ -165,39 +157,32 @@
               <div class="col-md-6">
                 <div class="card card-secondary">
                   <div class="card-header">
-                    
-      
+                    <h3 class="card-title">Company Information</h3>
                     <div class="card-tools">
                       <button type="button" class="btn btn-tool" data-card-widget="collapse" data-toggle="tooltip" title="Collapse">
                         <i class="fas fa-minus"></i></button>
                     </div>
+                    
                   </div>
                   <div class="card-body">
                     <div class="form-group">
-                        <label for="user_id">Assigned User</label>
-                        <select class="form-control {{ $errors->has('user_id') ? 'is-invalid' : '' }}" name="user_id" id="user_id" required>
-                            @foreach($users as $id => $entry)
-                                <option value="{{ $id }}" {{ (old('user_id') ? old('user_id') : $project->user->id ?? '') == $id ? 'selected' : '' }}>{{ $entry }} </option>
-                            @endforeach
-                        </select>
-
-                        
-                      </div>
-
-                    <div class="form-group">
-                    <label for="inputStatus">Status</label>
-                    <select class="form-control {{ $errors->has('status') ? 'is-invalid' : '' }}" name="status" id="status" required>
-                      @foreach(App\Models\Project::STATUS as $status)
-                          <option
-                              value="{{ $status }}" {{ old('status') == $status ? 'selected' : '' }}>{{ ucfirst($status) }}</option>
-                      @endforeach
-                    </select>
+                      <label class="required" for="company_name">Company Name</label>
+                      <input type="text" id="company_name" name="company_name" class="form-control" value="{{ old('company_name') }}" required>
                     </div>
-                      
                     <div class="form-group">
-                      <label for="deadline">Deadline</label>
-                      <input class="form-control {{ $errors->has('deadline') ? 'is-invalid' : '' }}" type="date" name="deadline" id="deadline" value="{{ old('deadline',  $project->deadline) }}">
+                      <label class="required" for="company_address">Company Address</label>
+                      <input type="text" id="company_address" name="company_address" class="form-control" value="{{ old('company_address') }}" required>
                     </div>
+                    <div class="form-group">
+                      <label class="required" for="company_city">Company City</label>
+                      <input type="text" id="company_city" name="company_city" class="form-control" value="{{ old('company_city') }}" required>
+                    </div>
+                    <div class="form-group">
+                      <label class="required" for="company_zip">Company Zip</label>
+                      <input type="text" id="company_zip" name="company_zip" class="form-control" value="{{ old('company_zip') }}" required>
+                    </div>
+                  
+                    
                   </div>
                   <!-- /.card-body -->
                 </div>
@@ -207,13 +192,11 @@
             <div class="row">
               <div class="col-12">
                 <a href="#" class="btn btn-secondary">Cancel</a>
-                <input type="submit" value="Create new Project" class="btn btn-success float-right">
+                <input type="submit" value="Save" class="btn btn-success float-right">
               </div>
             </div>
           </section>
         </form>
-        <!-- /.content -->
-
     </div>
       <!-- /.content-wrapper -->
     <footer class="main-footer">

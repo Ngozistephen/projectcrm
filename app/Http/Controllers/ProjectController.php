@@ -6,6 +6,8 @@ use App\Models\User;
 use App\Models\Client;
 use App\Models\Project;
 use Illuminate\Http\Request;
+use Illuminate\Http\Response;
+use Illuminate\Support\Facades\Gate;
 use App\Http\Requests\EditProjectRequest;
 use App\Http\Requests\CreateProjectRequest;
 
@@ -106,6 +108,6 @@ class ProjectController extends Controller
      */
     public function destroy(Project $project)
     {
-        //
+        abort_if(Gate::denies('delete'), Response::HTTP_FORBIDDEN, '403 Forbidden');
     }
 }

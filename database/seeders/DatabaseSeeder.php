@@ -8,6 +8,7 @@ use Database\Seeders\TaskSeeder;
 use Database\Seeders\UserSeeder;
 use Database\Seeders\ClientSeeder;
 use Database\Seeders\ProjectSeeder;
+use Database\Seeders\RolesandPermissionSeeder;
 
 class DatabaseSeeder extends Seeder
 {
@@ -20,10 +21,11 @@ class DatabaseSeeder extends Seeder
     {
 
         $this->call([ 
-            UserSeeder::class,
             ClientSeeder::class,
             ProjectSeeder::class,
             TaskSeeder::class,
+            RolesandPermissionSeeder::class,
+            UserSeeder::class,
         ]);
     }
 }
