@@ -49,7 +49,7 @@ class UserController extends Controller
      */
     public function store(CreateUserRequest $request)
     {
-        User:: create($request->validated());
+        User::create($request->validated());
 
         return redirect()->route('dashboard.users.index');
     }

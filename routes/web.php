@@ -7,6 +7,9 @@ use App\Http\Controllers\UserController;
 use App\Http\Controllers\TermsController;
 use App\Http\Controllers\ClientController;
 use App\Http\Controllers\ProjectController;
+use App\Http\Controllers\Auth\{
+    VerificationController,
+};
 
 /*
 |--------------------------------------------------------------------------
@@ -24,6 +27,7 @@ use App\Http\Controllers\ProjectController;
 Auth::routes();
 
 Route::permanentRedirect('/', 'login');
+Route::get('/email/verify',VerificationController::class)->name('verification.notice');
 
 Route::middleware(['auth','termsAccepted'])->group(function(){
     Route::get('/home', [HomeController::class, 'index'])->name('home');

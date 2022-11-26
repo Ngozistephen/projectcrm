@@ -42,7 +42,7 @@ class ClientController extends Controller
      */
     public function store(CreateClientRequest $request)
     {
-        Client:: create($request->validated());
+        Client::create($request->validated());
 
         return redirect()->route('dashboard.clients.index');
     }

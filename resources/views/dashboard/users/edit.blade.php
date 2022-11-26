@@ -1,6 +1,6 @@
 @extends('layouts.dashboard')
 
-    @section('page-title', 'CREATE')
+    @section('page-title', 'EDIT')
 
 @section('scripts')
     <script src="/js/custom/fix-custom-file-select.js"></script>
@@ -108,12 +108,12 @@
           <div class="container-fluid">
             <div class="row mb-2">
               <div class="col-sm-6">
-                <h1>Create User Information</h1>
+                <h1>Edit User Information</h1>
               </div>
               <div class="col-sm-6">
                 <ol class="breadcrumb float-sm-right">
                   <li class="breadcrumb-item"><a href="{{route('dashboard.users.index')}}">Home</a></li>
-                  <li class="breadcrumb-item active">Create User</li>
+                  <li class="breadcrumb-item active">Edit User</li>
                 </ol>
               </div>
             </div>
@@ -124,13 +124,13 @@
 
         <form action="{{route('dashboard.users.store')}}">
            @csrf
-          
+           @method('PUT')
           <section class="content">
             <div class="row">
               <div class="col-md-6">
                 <div class="card card-primary">
                   <div class="card-header">
-                    <h3 class="card-title">Create User</h3>
+                    <h3 class="card-title">Edit User</h3>
       
                     <div class="card-tools">
                       <button type="button" class="btn btn-tool" data-card-widget="collapse" data-toggle="tooltip" title="Collapse">
@@ -140,15 +140,15 @@
                   <div class="card-body">
                     <div class="form-group">
                       <label class="required" for="first_name"> First Name</label>
-                      <input type="text" id="first_name" name="first_name" class="form-control" value="{{ old('first_name') }}" required>
+                      <input type="text" id="first_name" name="first_name" class="form-control" value="{{ old('first_name', $user->first_name) }}" required>
                     </div>
                     <div class="form-group">
                       <label class="required" for="last_name">Last Name</label>
-                      <input type="text" id="last_name" name="last_name" class="form-control" value="{{ old('last_name') }}" required>
+                      <input type="text" id="last_name" name="last_name" class="form-control" value="{{ old('last_name', $user->last_name) }}" required>
                     </div>
                     <div class="form-group">
                       <label class="required" for="email">Email</label>
-                      <input type="text" id="email" name="email" class="form-control" value="{{ old('email') }}" required>
+                      <input type="text" id="email" name="email" class="form-control" value="{{ old('email', $user->email) }}" required>
                     </div>
                 
                   </div>
@@ -169,11 +169,11 @@
                   <div class="card-body">
                     <div class="form-group">
                       <label class="required" for="phone_number">Phone Number</label>
-                      <input type="text" id="hone_number" name="phone_number" class="form-control" value="{{ old('phone_number') }}" required>
+                      <input type="text" id="hone_number" name="phone_number" class="form-control" value="{{ old('phone_number', $user->phone_number) }}" required>
                     </div>
                     <div class="form-group">
                       <label class="required" for="address"> Address</label>
-                      <input type="text" id="address" name="address" class="form-control" value="{{ old('address') }}" required>
+                      <input type="text" id="address" name="address" class="form-control" value="{{ old('address', $user->address) }}" required>
                     </div>
                   
                   
