@@ -10,6 +10,7 @@ use App\Http\Controllers\ProjectController;
 use App\Http\Controllers\Auth\{
     VerificationController,
 };
+use App\Http\Controllers\MediaController;
 use Illuminate\Foundation\Auth\EmailVerificationRequest;
 use Illuminate\Http\Request;
 
@@ -52,7 +53,7 @@ Route::get('email/verify', '\App\Http\Controllers\Auth\VerificationController@sh
 Route::get('email/verify/{id}/{hash}', '\App\Http\Controllers\Auth\VerificationController@verify')->name('verification.verify');
 Route::post('email/resend', '\App\Http\Controllers\Auth\VerificationController@resend')->name('verification.resend');
 
-// add verified  to middleware to enable the verified email to wor
+// add verified  to middleware to enable the verified email to work
 
 Route::middleware(['auth','termsAccepted'])->group(function(){
     Route::get('/home', [HomeController::class, 'index'])->name('home');
@@ -61,8 +62,21 @@ Route::middleware(['auth','termsAccepted'])->group(function(){
         Route::resource('clients', ClientController::class);
         Route::resource('projects', ProjectController::class);
         Route::resource('tasks', TaskController::class);
+
+        
+        Route::group(['prefix' => 'media', 'as' => 'media.'], function () {
+            Route::post('{model}/{id}/upload', [MediaController::class, 'store'])->name('upload');
+            Route::get('{mediaItem}/download', [MediaController::class, 'download'])->name('download');
+            Route::delete('{model}/{id}/{mediaItem}/delete', [MediaController::class,'destroy'])->name('delete');
+           
+        });
     });
+    Route::get('token', function () {
+        return auth()->user()->createToken('crm')->plainTextToken;
+    });
+    // i will ask questions on this
    
+    
     
 });
 Route::get('terms', [TermsController::class, 'index'])->middleware('auth')->name('terms.index');

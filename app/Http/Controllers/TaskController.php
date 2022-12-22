@@ -98,5 +98,14 @@ class TaskController extends Controller
     public function destroy(Task $task)
     {
         abort_if(Gate::denies('delete'), Response::HTTP_FORBIDDEN, '403 Forbidden');
+
+        try {
+            $task->delete();
+        } catch (\Illuminate\Database\QueryException $e) {
+            if($e->getCode() === '23000') {
+               return redirect()->back()->with('status', 'Task belongs to project. Cannot delete.');
+           }
+        }
+        return redirect()->route('dashboard.tasks.index');
     }
 }

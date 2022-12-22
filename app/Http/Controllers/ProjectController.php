@@ -97,7 +97,7 @@ class ProjectController extends Controller
 
         $project->update($request->validated());
 
-        return redirect()->route('dashbpard.projects.index');
+        return redirect()->route('dashboard.projects.index');
     }
 
     /**
@@ -109,5 +109,15 @@ class ProjectController extends Controller
     public function destroy(Project $project)
     {
         abort_if(Gate::denies('delete'), Response::HTTP_FORBIDDEN, '403 Forbidden');
+
+
+        try {
+            $project->delete();
+        } catch (\Illuminate\Database\QueryException $e) {
+            if($e->getCode() === '23000') {
+               return redirect()->back()->with('status', 'Project belongs to task. Cannot delete.');
+           }
+        }
+        return redirect()->route('dashboard.projects.index');
     }
 }
