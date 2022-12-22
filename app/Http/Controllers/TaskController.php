@@ -6,9 +6,13 @@ use App\Models\Task;
 use App\Models\User;
 use App\Models\Client;
 use App\Models\Project;
+use App\Mail\TaskAssigned;
 use Illuminate\Http\Request;
 use Illuminate\Http\Response;
 use Illuminate\Support\Facades\Gate;
+use Illuminate\Support\Facades\Mail;
+use App\Http\Requests\CreateTaskRequest;
+use App\Http\Requests\EditTaskRequest;
 
 class TaskController extends Controller
 {
@@ -44,9 +48,19 @@ class TaskController extends Controller
      * @param  \Illuminate\Http\Request  $request
      * @return \Illuminate\Http\Response
      */
-    public function store(Request $request)
+    public function store(CreateTaskRequest $request )
     {
-        //
+        $task = Task::create($request->validated());
+
+        $user = User::find($request->user_id);
+
+        // $user->notify(new TaskAssigned($task));
+
+        Mail::to($user)->send(new TaskAssigned($task));
+
+        return redirect()->route('dashboard.tasks.index');
+
+
     }
 
     /**
@@ -84,9 +98,19 @@ class TaskController extends Controller
      * @param  \App\Models\Task  $task
      * @return \Illuminate\Http\Response
      */
-    public function update(Request $request, Task $task)
+    public function update(EditTaskRequest $request, Task $task)
     {
-        //
+        if ($task->user_id !== $request->user_id) {
+            $user = User::find($request->user_id);
+
+            // $user->notify(new TaskAssigned($task));
+
+            Mail::to($user)->send(new TaskAssigned($task));
+        }
+
+        $task->update($request->validated());
+
+        return redirect()->route('dashboard.tasks.index');
     }
 
     /**
