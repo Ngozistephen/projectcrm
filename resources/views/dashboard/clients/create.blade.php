@@ -139,14 +139,29 @@
                     <div class="form-group">
                       <label class="required" for="contact_name">Name</label>
                       <input type="text" id="contact_name" name="contact_name" class="form-control" value="{{ old('contact_name') }}" required>
+                      @if($errors->has('contact_name'))
+                        <div class="invalid-feedback">
+                            {{ $errors->first('contact_name') }}
+                        </div>
+                      @endif
                     </div>
                     <div class="form-group">
                       <label class="required" for="contact_email">Email</label>
                       <input type="text" id="contact_email" name="contact_email" class="form-control" value="{{ old('contact_email') }}" required>
+                      @if($errors->has('contact_email'))
+                        <div class="invalid-feedback">
+                            {{ $errors->first('contact_email') }}
+                        </div>
+                    @endif
                     </div>
                     <div class="form-group">
                       <label class="required" for="contact_phone_number">Phone Number</label>
                       <input type="text" id="contact_phone_number" name="contact_phone_number" class="form-control" value="{{ old('contact_phone_number') }}" required>
+                      @if($errors->has('contact_phone_number'))
+                        <div class="invalid-feedback">
+                            {{ $errors->first('contact_phone_number') }}
+                        </div>
+                      @endif
                     </div>
                 
                   </div>
@@ -168,18 +183,38 @@
                     <div class="form-group">
                       <label class="required" for="company_name">Company Name</label>
                       <input type="text" id="company_name" name="company_name" class="form-control" value="{{ old('company_name') }}" required>
+                      @if($errors->has('company_name'))
+                        <div class="invalid-feedback">
+                            {{ $errors->first('company_name') }}
+                        </div>
+                      @endif
                     </div>
                     <div class="form-group">
                       <label class="required" for="company_address">Company Address</label>
                       <input type="text" id="company_address" name="company_address" class="form-control" value="{{ old('company_address') }}" required>
+                      @if($errors->has('company_address'))
+                        <div class="invalid-feedback">
+                            {{ $errors->first('company_address') }}
+                        </div>
+                      @endif
                     </div>
                     <div class="form-group">
                       <label class="required" for="company_city">Company City</label>
                       <input type="text" id="company_city" name="company_city" class="form-control" value="{{ old('company_city') }}" required>
+                      @if($errors->has('company_city'))
+                        <div class="invalid-feedback">
+                            {{ $errors->first('company_city') }}
+                        </div>
+                      @endif
                     </div>
                     <div class="form-group">
                       <label class="required" for="company_zip">Company Zip</label>
                       <input type="text" id="company_zip" name="company_zip" class="form-control" value="{{ old('company_zip') }}" required>
+                      @if($errors->has('company_zip'))
+                        <div class="invalid-feedback">
+                            {{ $errors->first('company_zip') }}
+                        </div>
+                      @endif
                     </div>
                   
                     

@@ -1,18 +1,18 @@
 <?php
 
+use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\HomeController;
 use App\Http\Controllers\TaskController;
 use App\Http\Controllers\UserController;
+use App\Http\Controllers\MediaController;
 use App\Http\Controllers\TermsController;
 use App\Http\Controllers\ClientController;
+use App\Http\Controllers\ProfileController;
 use App\Http\Controllers\ProjectController;
-use App\Http\Controllers\Auth\{
-    VerificationController,
-};
-use App\Http\Controllers\MediaController;
+use App\Http\Controllers\NotificationsController;
+use App\Http\Controllers\Auth\VerificationController;
 use Illuminate\Foundation\Auth\EmailVerificationRequest;
-use Illuminate\Http\Request;
 
 /*
 |--------------------------------------------------------------------------
@@ -70,6 +70,19 @@ Route::middleware(['auth','termsAccepted'])->group(function(){
             Route::delete('{model}/{id}/{mediaItem}/delete', [MediaController::class,'destroy'])->name('delete');
            
         });
+
+
+        Route::group(['prefix' => 'notifications', 'as' => 'notifications.'], function () {
+            Route::get('/', [NotificationsController::class, 'index'])->name('index');
+            Route::put('/{notification}', [NotificationsController::class, 'update'])->name('update');
+            Route::delete('/destroy', [NotificationsController::class, 'destroy'])->name('destroy');
+        });
+
+
+        Route::get('profile', [ProfileController::class, 'index'])->name('profile.index');
+        Route::post('profile', [ProfileController::class, 'update'])->name('profile.update');
+        Route::post('profile/change-password', [ProfileController::class, 'changePassword'])->name('profile.changePassword');
+
     });
     Route::get('token', function () {
         return auth()->user()->createToken('crm')->plainTextToken;

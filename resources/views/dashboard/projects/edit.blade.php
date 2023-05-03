@@ -204,13 +204,13 @@
                 <!-- /.card -->
               </div>
             </div>
-            <div class="row">
+            {{-- <div class="row">
               <div class="col-12">
                 <div class="col-md-4">
                   <div class="card">
                       <div class="card-header">Files</div>
                       <div class="card-body">
-                          <form action="{{ route('dashboard.media.upload', ['Project', $project]) }}" method="POST"
+                          <form id="chuks" action="{{ route('dashboard.media.upload', ['Project', $project]) }}" method="POST"
                                 enctype="multipart/form-data">
                               @csrf
       
@@ -267,9 +267,73 @@
                 <a href="#" class="btn btn-secondary">Cancel</a>
                 <input type="submit" value="Create new Project" class="btn btn-success float-right">
               </div>
-            </div>
+            </div> --}}
           </section>
         </form>
+        <div class="row">
+          <div class="col-12">
+            <div class="col-md-4">
+              <div class="card">
+                  <div class="card-header">Files</div>
+                  <div class="card-body">
+                      <form id="chuks" action="{{ route('dashboard.media.upload', ['Project', $project]) }}" method="POST"
+                            enctype="multipart/form-data">
+                          @csrf
+  
+                          <div class="form-group">
+                              <label class="required" for="file">File</label>
+                              <input class="form-control {{ $errors->has('file') ? 'is-invalid' : '' }}" type="file"
+                                     name="file" id="file">
+                              @if($errors->has('file'))
+                                  <div class="invalid-feedback">
+                                      {{ $errors->first('file') }}
+                                  </div>
+                              @endif
+                              <span class="help-block"> </span>
+                          </div>
+  
+                          <button class="btn btn-primary" type="submit">
+                              Upload
+                          </button>
+                      </form>
+  
+                      <table class="table mt-4">
+                          <thead>
+                          <tr>
+                              <th scope="col">File name</th>
+                              <th scope="col">Size</th>
+                              <th scope="col"></th>
+                          </tr>
+                          </thead>
+                          <tbody>
+                          @foreach($project->getMedia() as $media)
+                              <tr>
+                                  <th scope="row">{{ $media->file_name }}</th>
+                                  <td>{{ $media->human_readable_size }}</td>
+                                  <td>
+                                      <a class="btn btn-xs btn-info" href="{{ route('dashboard.media.download', $media) }}">
+                                          Download
+                                      </a>
+                                      <form action="{{ route('dashboard.media.delete', ['Project', $project, $media]) }}"
+                                            method="POST" onsubmit="return confirm('Are your sure?');"
+                                            style="display: inline-block;">
+                                          @csrf
+                                          @method('DELETE')
+                                          <input type="submit" class="btn btn-xs btn-danger" value="Delete">
+                                      </form>
+                                  </td>
+                              </tr>
+                          @endforeach
+                          </tbody>
+                      </table>
+                  </div>
+              </div>
+            </div>
+  
+            <a href="#" class="btn btn-secondary">Cancel</a>
+            <input type="submit" value="Create new Project" class="btn btn-success float-right">
+          </div>
+        </div>
         <!-- /.content -->
 
     </div>

@@ -8,6 +8,7 @@ use App\Models\Project;
 use Illuminate\Http\Request;
 use Illuminate\Http\Response;
 use Illuminate\Support\Facades\Gate;
+use App\Notifications\ProjectAssigned;
 use App\Http\Requests\EditProjectRequest;
 use App\Http\Requests\CreateProjectRequest;
 
@@ -21,6 +22,7 @@ class ProjectController extends Controller
     public function index()
     {
         $projects = Project::with(['user', 'client'])->filterStatus(request('status'))->paginate(10);
+        
 
         return view ('dashboard.projects.index', compact('projects'));
     }
@@ -50,6 +52,8 @@ class ProjectController extends Controller
         $project = Project::create($request->validated());
 
         $user = User::find($request->user_id);
+
+        $user->notify(new ProjectAssigned($project));
 
         return redirect()->route('dashboard.projects.index');
     }
@@ -92,7 +96,7 @@ class ProjectController extends Controller
         if ($project->user_id !== $request->user_id) {
             $user = User::find($request->user_id);
 
-            // $user->notify(new ProjectAssigned($project));
+            $user->notify(new ProjectAssigned($project));
         }
 
         $project->update($request->validated());
