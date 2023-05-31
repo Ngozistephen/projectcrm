@@ -1,23 +1,18 @@
-<p align="center"><a href="https://laravel.com" target="_blank"><img src="https://raw.githubusercontent.com/laravel/art/master/logo-lockup/5%20SVG/2%20CMYK/1%20Full%20Color/laravel-logolockup-cmyk-red.svg" width="400"></a></p>
 
-<p align="center">
-<a href="https://travis-ci.org/laravel/framework"><img src="https://travis-ci.org/laravel/framework.svg" alt="Build Status"></a>
-<a href="https://packagist.org/packages/laravel/framework"><img src="https://img.shields.io/packagist/dt/laravel/framework" alt="Total Downloads"></a>
-<a href="https://packagist.org/packages/laravel/framework"><img src="https://img.shields.io/packagist/v/laravel/framework" alt="Latest Stable Version"></a>
-<a href="https://packagist.org/packages/laravel/framework"><img src="https://img.shields.io/packagist/l/laravel/framework" alt="License"></a>
-</p>
+## A CRM System for Managing Clients
+![Screenshot 2023-05-31 013716](https://github.com/Ngozistephen/projectcrm/assets/60478145/6b0d1772-006c-40e8-8b32-1b0c01d10358)
 
-## About Laravel
 
-Laravel is a web application framework with expressive, elegant syntax. We believe development must be an enjoyable and creative experience to be truly fulfilling. Laravel takes the pain out of development by easing common tasks used in many web projects, such as:
+This is an customer Relationship management app built with Laravel. It is an adminpanel-like system to manage Clients, Projects, Tasks with CRUD operations.
 
-- [Simple, fast routing engine](https://laravel.com/docs/routing).
-- [Powerful dependency injection container](https://laravel.com/docs/container).
-- Multiple back-ends for [session](https://laravel.com/docs/session) and [cache](https://laravel.com/docs/cache) storage.
-- Expressive, intuitive [database ORM](https://laravel.com/docs/eloquent).
-- Database agnostic [schema migrations](https://laravel.com/docs/migrations).
-- [Robust background job processing](https://laravel.com/docs/queues).
-- [Real-time event broadcasting](https://laravel.com/docs/broadcasting).
+## Screenshots
+
+![Screenshot 2023-05-31 015049](https://github.com/Ngozistephen/projectcrm/assets/60478145/e3db991a-5f5a-4a24-954e-2b21166262bd)
+![Screenshot 2023-05-31 015215](https://github.com/Ngozistephen/projectcrm/assets/60478145/3298fd7a-613e-4c68-97c7-0a64a5debe37)
+![Screenshot 2023-05-31 015336](https://github.com/Ngozistephen/projectcrm/assets/60478145/d5f0408e-ef3f-4248-81e2-0e2078d3ab1c)
+
+![Screenshot 2023-05-31 015440](https://github.com/Ngozistephen/projectcrm/assets/60478145/1f742b43-fd2e-4512-ad12-54ab63f9506f)
+
 
 Laravel is accessible, powerful, and provides tools required for large, robust applications.
 
